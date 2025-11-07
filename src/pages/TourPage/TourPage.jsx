@@ -9,7 +9,7 @@ export default function TourPage() {
 
       <div className="tour-inner">
         <div className="tour-header-info">
-          <div className="tour-name">Верхняя Балкари</div>
+          <div className="tour-name">Верхняя Балкария</div>
 
           <div className="price-section">
             <div className="price">7500 руб</div>
