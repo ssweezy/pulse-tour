@@ -1,0 +1,85 @@
+/* @font-face {
+  font-family: "NAURYZ";
+  src:
+    url("/fonts/NAURYZ") format("woff2"),
+} */
+
+.tour-section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* padding-top: 40px; */
+}
+
+.title {
+  font-size: 4rem;
+  color: var(--main-color);
+  padding: 50px 20px 0px;
+}
+
+.tour-block {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 90vw;
+  height: 250px;
+  margin-bottom: 60px;
+  border-radius: 30px;
+  color: var(--sub-color);
+  background-image: url(/tour-pfp/IMG_9625.JPG);
+  background-size: 400px;
+  background-position-y: 70%;
+  background-position-x: 80%;
+}
+
+.tour-location {
+  position: relative;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  height: 30px;
+  width: max-content;
+  padding: 5px 10px;
+
+  text-wrap: nowrap;
+  font-size: 1rem;
+
+  background-color: rgba(0, 0, 0, 0.096);
+  border-radius: 20px;
+
+  backdrop-filter: blur(20px);
+}
+
+.tour-info {
+  display: flex;
+  height: fit-content;
+  margin: 0 20px 30px 20px;
+
+  .tour-name {
+    display: flex;
+    font-size: 1rem;
+  }
+
+  .tour-caption {
+    /* font-family: ; */
+    font-size: 0.7rem;
+    color: rgb(155, 155, 155);
+
+    margin-top: 10px;
+  }
+
+  .tour-button {
+    font-size: 0.9rem;
+
+    display: flex;
+    align-self: center;
+    height: fit-content;
+
+    padding: 15px 15px;
+
+    background-color: var(--main-color);
+    border-radius: 15px;
+  }
+}

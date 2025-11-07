@@ -1,0 +1,84 @@
+.tour-section {
+  display: flex;
+  height: 100vh;
+
+
+  .tour-img {
+    width: 100%;
+    height: 50%;
+    background-color: gray;
+    background-image: url(/tour-pfp/balkaria.webp);
+    background-size: 650px;
+    background-position-y: 0%;
+    background-position-x: 50%;
+  }
+
+
+
+  .tour-inner {
+    position: relative;
+    top: -5%;
+    height: 50%;
+    border-radius: 30px 30px 0px 0px;
+
+    padding: 20px;
+
+    background-color: var(--sub-color);
+    color: var(--main-color);
+  }
+
+  .tour-header-info {
+    display: flex;
+    justify-content: space-between;
+
+    .tour-name {
+        max-width: 60%;
+        font-size: 2rem;
+    }
+
+    .price {
+        font-size: 1.5rem;
+    }
+    .price-add-info {
+        font-size: 0.6rem;
+    }
+
+  }
+
+  .tour-tab-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    font-family: phonksans;
+    font-size: 0.8rem;
+
+    margin: 20px 0px;
+  }
+
+  .tour-about-section {
+    font-family: phonksans;
+    font-size: 0.8rem;
+    line-height: 1.3rem;
+    max-height: 50%;
+    overflow: scroll;
+  }
+
+  .select-button {
+    position: absolute;
+    bottom: 5% ;
+
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+    font-family: phonksans;
+
+
+    width: 90%;
+    height: 70px;
+    border-radius: 40px;
+    border: none;
+
+    background-color: var(--main-color);
+  }
+}

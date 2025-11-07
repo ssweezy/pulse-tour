@@ -1,0 +1,56 @@
+@font-face {
+  font-family: "NAURYZREDKEDS";
+  src:
+    url("/fonts/NAURYZREDKEDS.woff2") format("woff2"),
+    url("/fonts/NAURYZREDKEDS.ttf") format("ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "phonksans";
+  src:
+    url("/fonts/PhonkSans-Light.woff2") format("woff2"),
+    url("/fonts/PhonkSans-Light.otf") format("otf");
+}
+
+/* Обнуляем базовые отступы и границы */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+}
+
+
+:root {
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: var(--sub-color);
+  box-sizing: border-box;
+
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  /* variables */
+  --btn-size: 50px;
+  --main-color: #2F3B69;
+  --sub-color: #fefefc;
+}
+
+
+body{
+  font-family: "NAURYZREDKEDS";
+  margin: 0;
+  height: 350px;
+  background: linear-gradient(to bottom, #596bb1, var(--sub-color));
+  box-sizing: border-box;
+}
+
+
+img {
+  max-width: 100%;
+  height: auto;
+}
