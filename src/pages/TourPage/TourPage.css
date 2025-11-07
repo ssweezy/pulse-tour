@@ -1,7 +1,8 @@
 .tour-section {
   display: flex;
   height: 100vh;
-
+  max-height: 100vh;
+  overflow: hidden;
 
   .tour-img {
     width: 100%;
@@ -13,18 +14,19 @@
     background-position-x: 50%;
   }
 
-
-
   .tour-inner {
     position: relative;
     top: -5%;
-    height: 50%;
+    height: 55%;
     border-radius: 30px 30px 0px 0px;
 
     padding: 20px;
 
     background-color: var(--sub-color);
     color: var(--main-color);
+
+    display: flex;
+    flex-direction: column;
   }
 
   .tour-header-info {
@@ -32,17 +34,41 @@
     justify-content: space-between;
 
     .tour-name {
-        max-width: 60%;
-        font-size: 2rem;
+      max-width: 60%;
+      font-size: 1.8rem;
     }
 
-    .price {
-        font-size: 1.5rem;
-    }
-    .price-add-info {
-        font-size: 0.6rem;
-    }
+    .price-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      height: min-content;
 
+      .price {
+        width: min-content;
+        font-size: 1.8rem;
+      }
+
+      .per-one {
+        display: flex;
+        align-items: end;
+        padding-bottom: 3px;
+
+        .close,
+        .person {
+          width: min-content;
+          display: flex;
+          height: 15px;
+          fill: var(--main-color);
+
+        }
+
+        .person {
+          height: 20px;
+          margin: 0 0 0 -3px;
+        }
+      }
+    }
   }
 
   .tour-tab-nav {
@@ -56,16 +82,20 @@
   }
 
   .tour-about-section {
+    display: flex;
+    overflow: scroll;
     font-family: phonksans;
     font-size: 0.8rem;
     line-height: 1.3rem;
-    max-height: 50%;
-    overflow: scroll;
+
+    margin-top: 10px;
+    margin-bottom: 90px;
+
   }
 
   .select-button {
     position: absolute;
-    bottom: 5% ;
+    bottom: 5%;
 
     display: flex;
     justify-self: center;
@@ -79,6 +109,7 @@
     border-radius: 40px;
     border: none;
 
+    color: var(--sub-color);
     background-color: var(--main-color);
   }
 }
