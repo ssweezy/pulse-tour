@@ -1,3 +1,4 @@
+import { Routes, Route, Link } from "react-router";
 import "./TourBlock.css";
 
 export default function TourBlock() {
@@ -9,7 +10,10 @@ export default function TourBlock() {
           <div className="tour-name">Пеший тур в Верхнюю Балкарию</div>
           <div className="tour-caption">невероятная информация</div>
         </div>
-        <div className="tour-button">ВСТУПИТЬ</div>
+        <div className="tour-button">
+          <Link to="/tour">ВСТУПИТЬ</Link>
+        </div>
+
       </div>
     </div>
   );

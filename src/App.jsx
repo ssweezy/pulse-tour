@@ -1,20 +1,15 @@
-import Header from "./comp/Header/Header";
-import TourBlock from "./comp/TourBlock/TourBlock";
 import TourPage from "./pages/TourPage/TourPage.jsx";
+import HomePage from "./pages/HomePage/HomePage.jsx";
+import { Routes, Route} from "react-router";
 import "./App.css";
 
 function App() {
   return (
     <>
-      {/* <Header></Header>
-      <div className="tour-section">
-      <h1 className="title">Мы - готовы,<br/>а вы?</h1>
-        <TourBlock></TourBlock>
-        <TourBlock></TourBlock>
-        <TourBlock></TourBlock>
-        <TourBlock></TourBlock>
-      </div> */}
-      <TourPage/>
+      <Routes>
+        <Route path="/tour" element={<TourPage />}></Route>
+        <Route path="/" element={<HomePage />}></Route>
+      </Routes>
     </>
   );
 }

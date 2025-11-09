@@ -7,7 +7,6 @@ export default function Header() {
         <svg
           version="1.0"
           xmlns="http://www.w3.org/2000/svg"
-          width=""
           height="45px"
           viewBox="0 0 472.000000 455.000000"
           preserveAspectRatio="xMidYMid meet"

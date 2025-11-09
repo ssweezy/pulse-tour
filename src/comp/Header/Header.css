@@ -1,18 +1,21 @@
 header {
   z-index: 400;
-  position: absolute;
+  position: fixed;
   display: flex;
   width: auto;
-  height: 50px;
+  height: 60px;
 
-  left: 0px;
-  right: 0px;
-  justify-content: space-between;
+  bottom: 40px;
+  left: 50px;
+  right: 50px;
+  justify-content: space-around;
   align-items: center;
   margin: 5px;
-  border: 2px, solid, var(--main-color);
-  border-radius: 5px;
-  background-color: #1111;
+  /* border: 2px, solid, var(--main-color); */
+  border-radius: 30px;
+  background-color: #9b98e62b;
+  backdrop-filter: blur(40px);
+
 }
 
 .hamburger {
@@ -60,7 +63,7 @@ header {
 }
 
 .logo {
-  margin-left: 5px;
+  margin-left: 15px;
   height: 45px;
   border-radius: 10px;
   overflow: hidden;

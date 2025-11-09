@@ -1,0 +1,13 @@
+.tour-section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow: scroll;
+  /* padding-top: 40px; */
+}
+
+.title {
+  font-size: 4rem;
+  color: var(--main-color);
+  padding: 50px 20px 0px;
+}
