@@ -6,7 +6,7 @@ import { Routes, Route} from "react-router";
 
 function App() {
   useTelegramWindow()
-
+  alert("BOOO")
   return (
     <>
       <Routes>
