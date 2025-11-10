@@ -2,6 +2,7 @@ import Header from "../../comp/Header/Header";
 import TourBlock from "../../comp/TourBlock/TourBlock";
 import "./HomePage.css"
 
+
 export default function HomePage() {
   return (
     <>
