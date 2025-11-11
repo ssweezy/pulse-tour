@@ -11,7 +11,7 @@ export default function TourBlock() {
           <div className="tour-caption">невероятная информация</div>
         </div>
         <div className="tour-button">
-          <Link to="/tour">ВСТУПИТЬ</Link>
+          <Link to="/tour" className="tour-link">ВСТУПИТЬ</Link>
         </div>
       </div>
     </div>

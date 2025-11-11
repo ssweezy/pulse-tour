@@ -5,6 +5,7 @@
   overflow: scroll;
   padding-top: var(--tg-content-safe-area-inset-top);
 }
+
 .title {
   font-size: 4rem;
   color: var(--main-color);
