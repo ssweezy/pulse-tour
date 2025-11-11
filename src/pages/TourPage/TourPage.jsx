@@ -1,14 +1,10 @@
 import "./TourPage.css";
 import WebApp from "@twa-dev/sdk";
-import { BackButton } from '@twa-dev/sdk/react';
+import { BackButton } from "@twa-dev/sdk/react";
 
-
-let tg = WebApp
+let tg = WebApp;
 
 export default function TourPage() {
-
-  // tg.BackButton.show()
-
   return (
     <div className="tour-page">
       <BackButton onClick={() => window.history.back()} />
@@ -67,7 +63,7 @@ export default function TourPage() {
           </div>
         </div>
 
-        <button className="select-button">Выбрать дни</button>
+        <button className="select-button" onClick={() => {window.history.back()}}>Выбрать дни</button>
       </div>
     </div>
   );

@@ -1,13 +1,9 @@
 import { Routes, Route, Link } from "react-router";
 import "./TourBlock.css";
-import { BackButton } from '@twa-dev/sdk/react';
-
 
 export default function TourBlock() {
   return (
-    
     <div className="tour-block">
-      <BackButton onClick={() => window.history.back()} />
       <div className="tour-location">КБР, Верхняя Балкария</div>
       <div className="tour-info">
         <div className="">
@@ -17,7 +13,6 @@ export default function TourBlock() {
         <div className="tour-button">
           <Link to="/tour">ВСТУПИТЬ</Link>
         </div>
-
       </div>
     </div>
   );

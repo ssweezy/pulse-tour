@@ -1,7 +1,7 @@
 import Header from "../../comp/Header/Header";
 import TourBlock from "../../comp/TourBlock/TourBlock";
 import "./HomePage.css"
-import WebApp from '@twa-dev/sdk'
+import WebApp from '@twa-dev/sdk' 
 
 let tg = WebApp
 
