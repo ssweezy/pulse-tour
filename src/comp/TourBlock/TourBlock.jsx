@@ -6,7 +6,7 @@ import WebApp from '@twa-dev/sdk'
 
 
 export default function TourBlock() {
-  if(!WebApp.BackButton.isVisible()) WebApp.BackButton.show();
+  if(!WebApp.BackButton.isVisible) WebApp.BackButton.show();
 
   
   return (
