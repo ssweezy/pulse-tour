@@ -1,3 +1,4 @@
+import { enableClosingConfirmation } from "@telegram-apps/sdk-react";
 import WebApp from "@twa-dev/sdk";
 
 let tg;
@@ -18,6 +19,7 @@ if (!window?.yandex) {
     expand: () => console.log('Mock: expand'),
     requestFullscreen: () => console.log('Mock: request fullscreen'),
     disableVerticalSwipes: () => console.log('Mock: diableVerticalSwipes'),
+    enableClosingConfirmation: () => console.log('Mock: enableClosingConfirmation'),
     initData: '',
     initDataUnsafe: {
       user: {
