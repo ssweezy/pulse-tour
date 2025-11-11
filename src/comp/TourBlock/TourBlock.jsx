@@ -7,7 +7,6 @@ import WebApp from '@twa-dev/sdk'
 
 export default function TourBlock() {
   WebApp.BackButton.show();
-  WebApp.showAlert("Добро пожаловать в тур!");
   
   return (
     

@@ -1,11 +1,15 @@
 import Header from "../../comp/Header/Header";
 import TourBlock from "../../comp/TourBlock/TourBlock";
 import "./HomePage.css"
+import WebApp from '@twa-dev/sdk'
 
 
 export default function HomePage() {
+  WebApp.BackButton.hide();
+  
   return (
     <>
+  
       <Header></Header>
       <div className="tour-section">
         <h1 className="title">
