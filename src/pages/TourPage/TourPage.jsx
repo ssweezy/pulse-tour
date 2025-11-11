@@ -1,14 +1,17 @@
 import "./TourPage.css";
 import WebApp from "@twa-dev/sdk";
+import { BackButton } from '@twa-dev/sdk/react';
+
 
 let tg = WebApp
 
 export default function TourPage() {
 
-  tg.BackButton.show()
+  // tg.BackButton.show()
 
   return (
     <div className="tour-page">
+      <BackButton onClick={() => window.history.back()} />
       <div className="tour-img">
         {/* <img src="/tour-pfp/balkaria.webp" alt="фото верхней балкарии" /> */}
       </div>

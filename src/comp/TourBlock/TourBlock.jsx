@@ -1,8 +1,6 @@
 import { Routes, Route, Link } from "react-router";
 import "./TourBlock.css";
 import { BackButton } from '@twa-dev/sdk/react';
-import WebApp from '@twa-dev/sdk'
-
 
 
 export default function TourBlock() {
