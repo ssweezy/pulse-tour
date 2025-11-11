@@ -6,8 +6,8 @@ import WebApp from '@twa-dev/sdk'
 
 
 export default function TourBlock() {
-  if(!WebApp.BackButton.isVisible) WebApp.BackButton.show();
-
+  WebApp.BackButton.show();
+  WebApp.showPopup("Тур загружен");
   
   return (
     
