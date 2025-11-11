@@ -8,7 +8,6 @@ import WebApp from '@twa-dev/sdk'
 
 function App() {
 
-  WebApp.BackButton.hide()
   WebApp.showAlert("AYO IM ALIVE")
 
   useTelegramWindow()
