@@ -6,8 +6,6 @@ import WebApp from '@twa-dev/sdk'
 
 
 export default function TourBlock() {
-  WebApp.BackButton.show();
-  
   return (
     
     <div className="tour-block">

@@ -1,6 +1,12 @@
 import "./TourPage.css";
+import WebApp from "@twa-dev/sdk";
+
+let tg = WebApp
 
 export default function TourPage() {
+
+  tg.BackButton.show()
+
   return (
     <div className="tour-page">
       <div className="tour-img">

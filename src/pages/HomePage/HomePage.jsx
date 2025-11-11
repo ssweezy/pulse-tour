@@ -3,9 +3,10 @@ import TourBlock from "../../comp/TourBlock/TourBlock";
 import "./HomePage.css"
 import WebApp from '@twa-dev/sdk'
 
+let tg = WebApp
 
 export default function HomePage() {
-  WebApp.BackButton.hide();
+  tg.BackButton.hide();
   
   return (
     <>
