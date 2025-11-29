@@ -9,11 +9,12 @@ function App() {
 
   return (
     <>
-      {/* <Routes>
+      <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/tour" element={<TourPage />}></Route>
-      </Routes> */}
-      <PayPage/>
+        <Route path="/pay" element={<PayPage />}></Route>
+      </Routes>
+      {/* <PayPage/> */}
     </>
   );
 }

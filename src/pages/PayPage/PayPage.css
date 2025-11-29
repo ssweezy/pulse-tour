@@ -265,21 +265,12 @@
     }
 
 
-
-
-
   }
-
-
-
-
-
-
 
 
   .select-button {
     position: absolute;
-    bottom: 5%;
+    bottom: calc(2% + 6px);
 
     display: flex;
     justify-self: center;

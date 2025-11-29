@@ -1,12 +1,23 @@
 import "./TourPage.css";
 import WebApp from "@twa-dev/sdk";
+import { useNavigate } from 'react-router-dom'
 import { BackButton } from "@twa-dev/sdk/react";
+import MyBackButton from "../../comp/BackButton/BackButton";
 
 let tg = WebApp;
 
 export default function TourPage() {
+  
+  const navigate = useNavigate()
+
+  function toPayPage(){
+    navigate("/pay")
+  }
+  
+  
   return (
     <div className="tour-page">
+      <MyBackButton>Back</MyBackButton>
       <BackButton onClick={() => window.history.back()} />
       <div className="tour-img">
         {/* <img src="/tour-pfp/balkaria.webp" alt="фото верхней балкарии" /> */}
@@ -63,7 +74,7 @@ export default function TourPage() {
           </div>
         </div>
 
-        <button className="select-button" onClick={() => {window.history.back()}}>Выбрать дни</button>
+        <button className="select-button" onClick={toPayPage}>Выбрать дни</button>
       </div>
     </div>
   );

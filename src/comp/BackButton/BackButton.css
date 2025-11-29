@@ -1,0 +1,18 @@
+
+
+.my-back-button {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+
+
+    font-weight: bold;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 10px;
+    /* border: 1px solid rgba(255, 255, 255, 0.3); */
+    background-color: #16161633;
+    color: rgb(0, 0, 0);
+    backdrop-filter: blur(3px) saturate(2) brightness(1.1);
+    cursor: pointer;
+}

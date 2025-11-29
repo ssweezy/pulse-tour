@@ -1,9 +1,11 @@
 import "./PayPage.css";
 import GradientText from "../../comp/Gradtext/GradientText";
+import MyBackButton from "../../comp/BackButton/BackButton";
 
 export default function PayPage() {
   return (
     <div className="pay-page">
+      <MyBackButton>Back</MyBackButton>
       <div className="ticket">
         <div className="ticket-inner">
           <div className="ticket-header">

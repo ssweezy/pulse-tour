@@ -28,11 +28,13 @@
 
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
   .tour-header-info {
     display: flex;
     justify-content: space-between;
+    width: 100%;
 
     .tour-name {
       max-width: 60%;
@@ -97,7 +99,7 @@
     bottom: 5%;
 
     display: flex;
-    justify-self: center;
+    justify-self: end;
     justify-content: center;
     align-items: center;
     font-family: phonksans;
