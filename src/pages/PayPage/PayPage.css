@@ -1,0 +1,298 @@
+@font-face {
+  font-family: "rushtice";
+  src:
+    url("/fonts/Rushtice.woff2") format("woff2"),
+    url("/fonts/Rushtice.ttf") format("ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "berka";
+  src:
+    url("/fonts/Berka.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "sublima";
+  src:
+    url("/fonts/Sublima.woff2") format("woff2");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "elves";
+  src:
+    url("/fonts/elves-micro.woff2") format("woff2");
+  font-weight: bold;
+}
+
+
+.pay-page {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+
+  /* background-color: #d2d4da; */
+
+  .ticket {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20%;
+    height: 70%;
+    width: 90%;
+    
+
+  }
+
+  .ticket-inner {
+    height: 30%;
+    width: 100%;
+    /* background-color: #b3b3b3; */
+    border-radius: 15px 15px 50px 50px;
+    padding: 20px;
+
+    background-image: url(/imgs/grad4.png);
+    background-size: 400px;
+    background-position-y: 70%;
+    background-position-x: 30%;
+
+    /* -webkit-box-shadow: 2px 11px 31px 6px rgba(34, 60, 80, 0.38);
+    -moz-box-shadow: 2px 11px 31px 6px rgba(34, 60, 80, 0.38);
+    box-shadow: 2px 11px 31px 6px rgba(34, 60, 80, 0.38); */
+  
+    .ticket-header {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      
+
+      .agency-name {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 2rem;
+
+        color: var(--main-color);
+      }
+
+    }
+    
+    .barcode {
+      display: flex;
+      justify-self: center;
+      margin-top: 25px;
+
+      width: 120px;
+      height: 50px;
+      background-image: url(/imgs/barcode.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      /* background-size: 150px; */
+      background-position-x: 30%;
+      background-position-y: 50%;
+      opacity: 0.65;
+  }
+
+    .pulse-icon {
+      /* position: relative; */
+      height: 60px;
+      bottom: 58px;
+      left: 80%;
+      border-radius: 10px;
+
+      g {
+        fill: var(--main-color);
+      }
+    }
+
+    
+  }
+  
+  
+  .cut-lines {
+    position: relative;
+    width: 70%;
+    height: 3px;
+    top: -1px;
+    left: 16%;
+    background: repeating-linear-gradient(
+    to right,
+    #4444449e, 10px,   /* длина штриха */
+    transparent 10px,
+    transparent 25px  /* длина пробела (20 - 10 = 10px) */
+    );
+  }
+
+
+
+
+
+
+
+  .ticket-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    
+    background-image: url(/imgs/grad3.png); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    
+    color: #121212;
+
+    height: 70%;
+    width: 100%;
+    margin-top: -4px;
+    
+
+    border-radius:50px 50px 15px 15px ;
+
+    -webkit-box-shadow: 2px 11px 31px 6px rgba(34, 60, 80, 0.38);
+    -moz-box-shadow: 2px 11px 31px 6px rgba(34, 60, 80, 0.38);
+    box-shadow: 1px 5px 25px 1px rgba(34, 60, 80, 0.38);
+
+    .ticket-time-details {
+      display: flex;  
+      justify-content: space-between;
+      padding: 20px;
+      padding-top: 30px;
+    .to {
+      max-width: 70%;
+      max-height: 140px;
+      overflow: hidden;
+
+      .dest-name {
+        font-size: 1.4rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    
+    .at {
+      max-width: 30%;
+
+      .tour-date, .tour-time {
+        font-size: 1.4rem;
+      }
+    }
+
+    .at, .to {
+      font-family: "elves";
+    }
+
+    .sub-text {
+      font-family: "rushtice";
+      color: #0d0d0d39;
+    }
+    }
+    
+    .ticket-price-box {
+      display: flex;
+      width: 100%;
+      height: 50%;
+      margin: 0 0 50px 0;
+      border: none;
+      border-top: 2px solid black;
+      border-bottom: 2px solid black;
+
+      .ticket-price-details {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        width: 100%;
+        padding: 10px;
+        margin: 0 20px;
+        border-left: 2px solid black;
+        border-right: 2px solid black;
+        font-family: "elves";
+        
+
+        .sub-text {
+          display: flex;
+          align-items: center;
+          line-height: 13px; 
+          width: 40%;
+          font-size: 0.9rem;
+        }
+        
+        .price-part {
+          font-size: 2rem;
+          display: flex;
+          justify-content: space-between;
+          
+        }
+        
+        .price-numbers {
+          display: flex;
+          align-items: center;
+          font-size: 1.4rem;
+        }
+        
+        .check-id-box {
+          
+          .check-id {
+            font-size: 1rem;
+          }
+
+        }
+        .passenger {
+          
+          .passengers-number {
+            line-height: 70%;
+          }
+
+        }
+
+        
+        .seat {
+          align-items: end;
+          line-height: 20px;
+          
+          .seat-number {
+            /* padding-right: 5px; */
+          }
+        }
+        
+        
+        .total-box {
+          display: flex;
+          justify-content: space-between;
+          font-size: 1.4-rem;
+          justify-self: end;
+        }
+      }
+    }
+
+
+
+
+
+  }
+
+
+
+
+
+
+
+
+  .select-button {
+    position: absolute;
+    bottom: 5%;
+
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+    font-family: phonksans;
+
+    width: 90%;
+    height: 70px;
+    border-radius: 40px;
+    border: none;
+
+    color: var(--sub-color);
+    background-color: var(--main-color);
+  }
+}
