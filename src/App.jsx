@@ -10,11 +10,11 @@ function App() {
 
   useTelegramWindow()
 
-  // // тестовый вызов входящих данных пользователя
+  // // тестовый анализ входящих данных пользователя
   let username = user.username
   let id = user.id
   let initInfo = tg.initDataUnsafe
-  tg.showAlert(`Привет, ${username} \nID - ${id} \n\n ${initInfo}`)
+  tg.showAlert(`Привет, ${username} \nID - ${id}`)
   console.log(initInfo)
 
 
