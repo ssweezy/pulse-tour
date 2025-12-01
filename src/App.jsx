@@ -1,17 +1,16 @@
 import TourPage from "./pages/TourPage/TourPage.jsx";
 import HomePage from "./pages/HomePage/HomePage.jsx";
 import PayPage from "./pages/PayPage/PayPage.jsx";
-import {useTelegramWindow} from "./hooks/useTelegramWindow";
+import useTelegramWindow from "./hooks/useTelegramWindow";
 import { Routes, Route } from "react-router";
-import WebApp from "@twa-dev/sdk"
+import tg from "./utils/telegram.jsx";
 
 function App() {
-  let tg = WebApp
   let user = tg.initDataUnsafe?.user
 
   useTelegramWindow()
 
-  // тестовый вызов входящих данных пользователя
+  // // тестовый вызов входящих данных пользователя
   let username = user.username
   let id = user.id
   let initInfo = tg.initDataUnsafe

@@ -5,7 +5,6 @@ let tg;
 
 if (!window?.yandex) {
   // Запущено внутри Telegram Mini App
-  console.log(window)
   tg = WebApp;
   tg.ready(); // Уведомляем Telegram, что приложение загружено
 } else {
