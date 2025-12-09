@@ -15,7 +15,7 @@
   margin-bottom: 60px;
   border-radius: 30px;
   color: var(--sub-color);
-  background-image: url(/tour-pfp/IMG_9625.JPG);
+  /* background-image: url(/tour-pfp/IMG_9625.JPG); */
   background-size: 400px;
   background-position-y: 70%;
   background-position-x: 80%;
@@ -43,7 +43,10 @@
 .tour-info {
   display: flex;
   height: fit-content;
+  justify-content: space-between;
+
   margin: 0 20px 30px 20px;
+
 
   .tour-name {
     display: flex;

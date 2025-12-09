@@ -14,8 +14,8 @@ function App() {
   let username = user.username
   let id = user.id
   let initInfo = tg.initDataUnsafe
-  tg.showAlert(`Привет, ${username} \nID - ${id}`)
-  console.log(initInfo)
+  // tg.showAlert(`Привет, ${username} \nID - ${id}`)
+  // console.log(initInfo)
 
 
 

@@ -10,6 +10,7 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '/api'),
       },
+      '/media': 'http://localhost:3000'
     },
   },
 });
