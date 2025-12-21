@@ -8,11 +8,66 @@
   .tour-img {
     width: 100%;
     height: 50%;
-    background-color: gray;
+    /* background-color: gray;
     background-image: url(/tour-pfp/balkaria.webp);
     background-size: 650px;
     background-position-y: 0%;
-    background-position-x: 50%;
+    background-position-x: 50%; */
+
+    .carousel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .carousel-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 24px;
+      padding: 10px 15px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .prev-btn {
+      left: 10px;
+    }
+
+    .next-btn {
+      right: 10px;
+    }
+
+    .carousel-indicators {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+    }
+
+    .indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+    }
+
+    .indicator.active {
+      background: white;
+    }
   }
 
   .tour-inner {
@@ -81,6 +136,70 @@
     font-size: 0.8rem;
 
     margin: 20px 0px;
+  }
+
+  .tab-link {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    background: none;
+    border: none;
+    color: var(--main-color);
+    font-size: 0.8rem;
+    cursor: pointer;
+    opacity: 0.5;
+  }
+
+  .tab-link.active {
+    opacity: 1;
+    text-decoration: underline;
+  }
+
+  .tour-section {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .extras-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .extra-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .extra-info {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+  }
+
+  .extra-name {
+    font-size: 0.9rem;
+  }
+
+  .extra-price {
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+
+  .extra-add-btn {
+    background: var(--main-color);
+    color: var(--sub-color);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .tour-about-section {

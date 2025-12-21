@@ -8,26 +8,23 @@
 
 @font-face {
   font-family: "berka";
-  src:
-    url("/fonts/Berka.woff2") format("woff2");
+  src: url("/fonts/Berka.woff2") format("woff2");
 }
 
 @font-face {
   font-family: "sublima";
-  src:
-    url("/fonts/Sublima.woff2") format("woff2");
+  src: url("/fonts/Sublima.woff2") format("woff2");
   font-weight: bold;
 }
 
 @font-face {
   font-family: "elves";
-  src:
-    url("/fonts/elves-micro.woff2") format("woff2");
+  src: url("/fonts/elves-micro.woff2") format("woff2");
   font-weight: bold;
 }
 
-
 .pay-page {
+  overflow: hidden;
   display: flex;
   height: 100vh;
   justify-content: center;
@@ -37,15 +34,14 @@
   .ticket {
     display: flex;
     flex-direction: column;
-    margin-top: 25%;
-    height: 70%;
+    margin-top: 20%;
+    max-height: 75%;
     width: 90%;
-    
-
+    /* overflow: hidden; */
   }
 
   .ticket-inner {
-    height: 30%;
+    height: 20%;
     width: 100%;
     /* background-color: #b3b3b3; */
     border-radius: 15px 15px 50px 50px;
@@ -59,13 +55,11 @@
     /* -webkit-box-shadow: 2px 11px 31px 6px rgba(34, 60, 80, 0.38);
     -moz-box-shadow: 2px 11px 31px 6px rgba(34, 60, 80, 0.38);
     box-shadow: 2px 11px 31px 6px rgba(34, 60, 80, 0.38); */
-  
+
     .ticket-header {
       display: flex;
       justify-content: space-around;
       align-items: center;
-
-      
 
       .agency-name {
         display: flex;
@@ -75,9 +69,8 @@
 
         color: var(--main-color);
       }
-
     }
-    
+
     .barcode {
       display: flex;
       justify-self: center;
@@ -92,7 +85,7 @@
       background-position-x: 30%;
       background-position-y: 50%;
       opacity: 0.65;
-  }
+    }
 
     .pulse-icon {
       /* position: relative; */
@@ -105,92 +98,91 @@
         fill: var(--main-color);
       }
     }
-
-    
   }
-  
-  
+
   .cut-lines {
     position: relative;
     width: 70%;
     height: 3px;
-    top: -1px;
+    top: -2px;
     left: 16%;
     background: repeating-linear-gradient(
-    to right,
-    #4444449e, 10px,   /* длина штриха */
-    transparent 10px,
-    transparent 25px  /* длина пробела (20 - 10 = 10px) */
+      to right,
+      #4444449e,
+      10px,
+      /* длина штриха */ transparent 10px,
+      transparent 25px /* длина пробела (20 - 10 = 10px) */
     );
   }
-
-
-
-
-
-
 
   .ticket-bottom {
     display: flex;
     flex-wrap: wrap;
-    
-    background-image: url(/imgs/grad3.png); 
-    background-size: cover; 
-    background-repeat: no-repeat; 
-    
+
+    background-image: url(/imgs/grad3.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+
     color: #121212;
 
-    height: 70%;
+    /* height: 70%; */
     width: 100%;
+    height: 100%;
     margin-top: -4px;
-    
 
-    border-radius:50px 50px 15px 15px ;
+    border-radius: 50px 50px 15px 15px;
 
     -webkit-box-shadow: 2px 11px 31px 6px rgba(34, 60, 80, 0.38);
     -moz-box-shadow: 2px 11px 31px 6px rgba(34, 60, 80, 0.38);
     box-shadow: 1px 5px 25px 1px rgba(34, 60, 80, 0.38);
 
     .ticket-time-details {
-      display: flex;  
+      display: flex;
       justify-content: space-between;
       padding: 20px;
       padding-top: 30px;
-    .to {
-      max-width: 70%;
-      max-height: 140px;
+      max-height: 20%;
+      min-width: 100%;
       overflow: hidden;
 
-      .dest-name {
-        font-size: 1.4rem;
+      .to {
+        max-width: 40%;
+        max-height: 140px;
         overflow: hidden;
-        text-overflow: ellipsis;
+
+        .dest-name {
+          font-size: 1.4rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .at {
+        max-width: 30%;
+
+        .tour-date,
+        .tour-time {
+          font-size: 1rem;
+        }
+      }
+
+      .at,
+      .to {
+        font-family: "elves";
+      }
+
+      .sub-text {
+        font-family: "rushtice";
+        color: #0d0d0d39;
       }
     }
-    
-    .at {
-      max-width: 30%;
 
-      .tour-date, .tour-time {
-        font-size: 1.4rem;
-      }
-    }
-
-    .at, .to {
-      font-family: "elves";
-    }
-
-    .sub-text {
-      font-family: "rushtice";
-      color: #0d0d0d39;
-    }
-    }
-    
     .ticket-price-box {
       display: flex;
-      width: 100%;
-      height: 50%;
+      max-width: 100%;
+      height: 70%;
       margin: 0 0 50px 0;
+
       border: none;
       border-top: 2px solid black;
       border-bottom: 2px solid black;
@@ -200,90 +192,262 @@
         flex-direction: column;
         justify-content: space-between;
 
-        width: 100%;
+        width: 95%;
         padding: 10px;
-        margin: 0 20px;
+        margin: 0 2.5%;
         border-left: 2px solid black;
         border-right: 2px solid black;
         font-family: "elves";
-        
 
-        .sub-text {
-          display: flex;
-          align-items: center;
-          line-height: 13px; 
-          width: 40%;
-          font-size: 0.9rem;
-        }
-        
-        .price-part {
-          font-size: 2rem;
-          display: flex;
-          justify-content: space-between;
-          
-        }
-        
-        .price-numbers {
-          display: flex;
-          align-items: center;
-          font-size: 1.4rem;
-        }
-        
-        .check-id-box {
-          
-          .check-id {
-            font-size: 1rem;
-          }
-
-        }
-        .passenger {
-          
-          .passengers-number {
-            line-height: 70%;
-          }
-
+        .extras-list {
+          margin: 10px 0;
+          padding: 10px 0;
+          border-top: 1px solid #ccc;
+          border-bottom: 1px solid #ccc;
         }
 
-        
-        .seat {
-          align-items: end;
-          line-height: 20px;
-          
-          .seat-number {
-            /* padding-right: 5px; */
-          }
+        .extras-title {
+          font-weight: bold;
+          margin: 5px 0;
         }
-        
-        
-        .total-box {
+
+        .extra-item {
           display: flex;
           justify-content: space-between;
-          font-size: 1.4-rem;
-          justify-self: end;
+          padding: 5px 0;
+          border-bottom: 1px solid #eee;
+        }
+
+        .extra-name {
+          flex: 1;
+        }
+
+        .extra-price {
+          text-align: right;
         }
       }
+
+      .sub-text {
+        display: flex;
+        align-items: center;
+        line-height: 13px;
+        /* width: 40%; */
+        font-size: 0.8rem;
+      }
+
+      .price-part {
+        font-size: 2rem;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .price-numbers {
+        display: flex;
+        align-items: center;
+        font-size: 1.4rem;
+      }
+
+      .check-id-box {
+        .check-id {
+          font-size: 1rem;
+        }
+      }
+      .passenger {
+        display: flex;
+        justify-content: space-between;
+        max-width: 100%;
+
+        .passenger-input-box,
+        .phone-input-box {
+          display: flex;
+          flex-direction: column;
+          max-width: 50%;
+        }
+
+        .passenger-input,
+        .phone-input {
+          display: flex;
+
+          background: transparent;
+          border: none;
+
+          font-family: "elves";
+          color: #000;
+          padding-top: 5px;
+          max-width: 100%;
+          overflow: scroll;
+          font-size: 1rem;
+        }
+
+        .passenger-input {
+          margin-right: px;
+        }
+
+        .passenger-input:focus,
+        .phone-input:focus {
+          outline: none;
+        }
+
+        .passenger-input.error {
+          border: 2px solid #ff4757 !important;
+          box-shadow: 0 0px rgba(255, 71, 87, 0.5);
+        }
+
+        .sub-text {
+          font-size: 0.7rem;
+        }
+      }
+
+      .seat {
+        align-items: end;
+        line-height: 20px;
+
+        .seat-number {
+          /* padding-right: 5px; */
+        }
+      }
+
+      .total-box {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.4-rem;
+        justify-self: end;
+      }
     }
-
-
   }
+}
 
+.select-button {
+  position: absolute;
+  bottom: calc(2% + 6px);
 
-  .select-button {
-    position: absolute;
-    bottom: calc(2% + 6px);
+  display: flex;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+  font-family: phonksans;
 
-    display: flex;
-    justify-self: center;
-    justify-content: center;
-    align-items: center;
-    font-family: phonksans;
+  width: 90%;
+  height: 70px;
+  border-radius: 40px;
+  border: none;
 
-    width: 90%;
-    height: 70px;
-    border-radius: 40px;
-    border: none;
+  color: var(--sub-color);
+  background-color: var(--main-color);
+}
 
-    color: var(--sub-color);
-    background-color: var(--main-color);
-  }
+/* Стили для поля ввода телефона с ошибкой */
+.phone-input.error {
+  border: 2px solid #ff4757 !important;
+  box-shadow: 0 0 4px rgba(255, 71, 87, 0.5);
+}
+
+/* Стили для сообщения об ошибке телефона */
+.phone-error-message {
+  color: #ff4757;
+  font-size: 12px;
+  margin-top: 6px;
+  margin-left: 2px;
+  height: 15px;
+}
+
+/* Стили для сообщения об ошибке имени */
+.name-error-message {
+  color: #ff4757;
+  font-size: 12px;
+  margin-top: 6px;
+  margin-left: 2px;
+  height: 15px;
+}
+
+.name-error-message, .phone-error-message {
+  height: fit-content;
+  position: relative;
+}
+
+/* Стили для чекбокса соглашения */
+.agreement-checkbox {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  font-family: "rushtice";
+  font-size: 0.9rem;
+}
+
+.agreement-checkbox input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.3);
+}
+
+.agreement-text {
+  color: #2f3b69;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Стили для модального окна */
+.agreement-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.agreement-modal {
+  width: 80%;
+  height: 70%;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-family: "elves";
+  color: #2f3b69;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #2f3b69;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-modal:hover {
+  color: #000;
+}
+
+.modal-content {
+  overflow-y: auto;
+  flex-grow: 1;
+  font-family: "rushtice";
+  font-size: 0.9rem;
+  line-height: 1.5;
 }

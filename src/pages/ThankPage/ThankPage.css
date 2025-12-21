@@ -1,0 +1,88 @@
+@font-face {
+  font-family: "rushtice";
+  src:
+    url("/fonts/Rushtice.woff2") format("woff2"),
+    url("/fonts/Rushtice.ttf") format("ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "berka";
+  src: url("/fonts/Berka.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "sublima";
+  src: url("/fonts/Sublima.woff2") format("woff2");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "elves";
+  src: url("/fonts/elves-micro.woff2") format("woff2");
+  font-weight: bold;
+}
+
+.thank-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #d2d4da, #a4add0);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.thank-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 500px;
+  width: 100%;
+  background: white;
+  border-radius: 20px;
+  padding: 40px 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0.1);
+  text-align: center;
+}
+
+.thank-header {
+  margin-bottom: 30px;
+}
+
+.thank-header div {
+  font-size: 2.5rem;
+  margin: 10px 0;
+}
+
+.thank-message {
+  margin-bottom: 40px;
+}
+
+.thank-message p {
+  font-family: "rushtice";
+  font-size: 1.2rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+.home-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "rushtice";
+  width: 200px;
+  height: 60px;
+  border-radius: 40px;
+  border: none;
+  color: var(--sub-color);
+  background-color: var(--main-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.home-button:hover {
+  background-color: #252d54;
+}
