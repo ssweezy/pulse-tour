@@ -23,21 +23,85 @@
   font-weight: bold;
 }
 
-.pay-page {
-  overflow: hidden;
-  display: flex;
-  height: 100vh;
-  justify-content: center;
+@font-face {
+  font-family: "NAURYZREDKEDS";
+  src: url("/fonts/NAURYZREDKEDS.woff2") format("woff2");
+  font-weight: bold;
+}
 
-  /* background-color: #d2d4da; */
+/* ==================== Desktop Stub ==================== */
+.desktop-stub {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2f3b69 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.desktop-stub-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 80%;
+}
+
+.desktop-stub-text {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: clamp(4rem, 12vw, 12rem);
+  color: white;
+  text-align: center;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  opacity: 0.9;
+}
+
+/* ==================== Main Pay Page ==================== */
+/*
+ * Фиксированная высота - не изменяется при появлении клавиатуры
+ * Используем min-height и overflow для стабильного отображения
+ */
+.pay-page {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  /* Фиксированная высота - не сжимается при клавиатуре */
+  min-height: 100vh;
+  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
+  justify-content: center;
+  /* Предотвращаем resize при клавиатуре */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
   .ticket {
     display: flex;
     flex-direction: column;
-    margin-top: 20%;
-    max-height: 75%;
+    /* Фиксированные размеры - не меняются при клавиатуре */
+    margin-top: calc(var(--tg-safe-area-top, 0px) + 60px);
+    margin-bottom: 100px;
+    min-height: 500px;
+    max-height: calc(100vh - 180px);
     width: 90%;
-    /* overflow: hidden; */
+    flex-shrink: 0;
   }
 
   .ticket-inner {
@@ -317,7 +381,8 @@
   }
 }
 
-.select-button {
+/* Старый стиль кнопки - оставлен для fallback страницы без тура */
+.select-button:not(.primary-button-pay) {
   position: absolute;
   bottom: calc(2% + 6px);
 
@@ -360,7 +425,8 @@
   height: 15px;
 }
 
-.name-error-message, .phone-error-message {
+.name-error-message,
+.phone-error-message {
   height: fit-content;
   position: relative;
 }
@@ -450,4 +516,171 @@
   font-family: "rushtice";
   font-size: 0.9rem;
   line-height: 1.5;
+}
+
+/* ==================== Доп услуги в билете с удалением ==================== */
+/*
+ * Стили для отображения выбранных услуг в билете
+ * Настраиваемые переменные анимации в index.css
+ */
+.extras-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.extra-item-ticket {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  /* Анимация появления */
+  animation: fadeInUp var(--animation-speed-normal, 0.3s) var(--ease-out);
+}
+
+.extra-item-ticket:last-child {
+  border-bottom: none;
+}
+
+.extra-item-info {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-right: 8px;
+}
+
+.extra-item-ticket .extra-name {
+  font-size: 0.9rem;
+  flex: 1;
+}
+
+.extra-item-ticket .extra-price {
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Кнопка удаления услуги */
+.extra-remove-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(255, 71, 87, 0.15);
+  color: #ff4757;
+  cursor: pointer;
+  /* Анимация */
+  transition:
+    transform var(--animation-speed-fast, 0.15s) var(--ease-out),
+    background-color var(--animation-speed-fast, 0.15s) var(--ease-out),
+    opacity var(--animation-speed-fast, 0.15s) var(--ease-out);
+}
+
+.extra-remove-btn:active {
+  transform: scale(0.9);
+  background-color: rgba(255, 71, 87, 0.3);
+}
+
+.extra-remove-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ==================== Кнопка скрытия клавиатуры ==================== */
+/*
+ * Появляется при фокусе на инпуте
+ * Анимация настраивается через --animation-speed-* переменные
+ */
+.keyboard-dismiss-btn {
+  position: fixed;
+  bottom: calc(90px + var(--tg-safe-area-bottom, 0px));
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--main-color, #2f3b69);
+  color: var(--sub-color, #fefefc);
+  box-shadow: 0 4px 16px rgba(47, 59, 105, 0.3);
+  cursor: pointer;
+  z-index: 100;
+  /* Начальное состояние - скрыта */
+  opacity: 0;
+  transform: scale(0.7) translateY(20px);
+  pointer-events: none;
+  /* Плавная анимация появления/скрытия */
+  transition:
+    opacity var(--animation-speed-normal, 0.3s) var(--ease-out),
+    transform var(--animation-speed-normal, 0.3s) var(--ease-bounce);
+}
+
+/* Видимое состояние при открытой клавиатуре */
+.keyboard-dismiss-btn.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+
+.keyboard-dismiss-btn:active {
+  transform: scale(0.9) translateY(0);
+}
+
+.keyboard-dismiss-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ==================== Главная кнопка оплаты ==================== */
+/*
+ * Унифицированный стиль для основных кнопок действия
+ * Не поднимается над клавиатурой при вводе данных
+ */
+.primary-button-pay {
+  position: fixed;
+  bottom: calc(20px + var(--tg-safe-area-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 400px;
+  height: 60px;
+  padding: 0 24px;
+  border: none;
+  border-radius: var(--btn-radius, 16px);
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  color: var(--sub-color, #fefefc);
+  background-color: var(--main-color, #2f3b69);
+  box-shadow: 0 6px 24px rgba(47, 59, 105, 0.35);
+  cursor: pointer;
+  z-index: 90;
+  /* Анимация нажатия */
+  transition:
+    transform var(--animation-speed-fast, 0.15s) var(--ease-out),
+    box-shadow var(--animation-speed-fast, 0.15s) var(--ease-out),
+    opacity var(--animation-speed-normal, 0.3s) var(--ease-out);
+}
+
+.primary-button-pay:active {
+  transform: translateX(-50%) scale(0.98);
+  box-shadow: 0 3px 12px rgba(47, 59, 105, 0.25);
+}
+
+/* Состояние при открытой клавиатуре - слегка скрываем, но не поднимаем */
+.primary-button-pay.keyboard-open {
+  opacity: 0.6;
 }

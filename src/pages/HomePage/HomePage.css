@@ -1,13 +1,141 @@
+/* HomePage.css - Минимализм + Брутализм */
+/*
+ * Настройки анимаций наследуются из глобальных переменных в index.css
+ * Для изменения скорости анимаций - редактируйте --animation-speed-* в :root
+ */
+
+/* Шрифты */
+@font-face {
+  font-family: "NAURYZREDKEDS";
+  src: url("/fonts/NAURYZREDKEDS.woff2") format("woff2");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "phonksans";
+  src: url("/fonts/PhonkSans-Light.woff2") format("woff2");
+}
+
+/* ==================== Desktop Stub ==================== */
+.desktop-stub {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2F3B69 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.desktop-stub-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 80%;
+}
+
+.desktop-stub-text {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: clamp(4rem, 12vw, 12rem);
+  color: white;
+  text-align: center;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  opacity: 0.9;
+}
+
+/* ==================== Main Home Page ==================== */
+.home-page {
+  min-height: 100vh;
+  /* Градиентный фон в стиле турагентства */
+  background: linear-gradient(
+    180deg,
+    #596bb1 0%,
+    #7a8bc7 15%,
+    #b8c4e8 35%,
+    var(--sub-color, #fefefc) 60%
+  );
+  background-attachment: fixed;
+  opacity: 0;
+  transform: translateY(20px);
+  /* Используем глобальные переменные анимаций */
+  transition: all var(--animation-speed-slow, 0.5s) var(--ease-out, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.home-page.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Декоративные элементы фона */
+.home-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40vh;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(47, 59, 105, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(89, 107, 177, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Loading */
+.home-page-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: linear-gradient(180deg, #596bb1 0%, var(--sub-color, #fefefc) 60%);
+  font-family: "phonksans", sans-serif;
+  color: white;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin var(--animation-speed-very-slow, 0.8s) linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Tour Section */
 .tour-section {
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  overflow: scroll;
-  padding-top: var(--tg-content-safe-area-inset-top);
+  overflow-y: auto;
+  /* Safezone отступы для Telegram */
+  padding-top: calc(var(--tg-safe-area-top, 0px) + 20px);
+  padding-bottom: calc(var(--tg-safe-area-bottom, 0px) + 40px);
+  padding-left: var(--tg-safe-area-left, 0px);
+  padding-right: var(--tg-safe-area-right, 0px);
 }
 
 .title {
-  font-size: 4rem;
-  color: var(--main-color);
-  padding: 50px 20px 0px;
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: clamp(3rem, 10vw, 4rem);
+  color: white;
+  padding: 40px 20px 30px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 20px rgba(47, 59, 105, 0.3);
+  /* Анимация появления */
+  animation: fadeInUp var(--animation-speed-slow, 0.5s) var(--ease-out) both;
 }

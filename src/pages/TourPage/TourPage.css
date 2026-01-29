@@ -1,234 +1,1147 @@
-.tour-page {
+/* TourPage.css - Минимализм + Брутализм */
+/*
+ * ==================== Настройки анимаций ====================
+ * Все анимации используют глобальные переменные из index.css
+ * Для изменения скорости - редактируйте переменные --animation-speed-* в :root
+ * Для изменения jiggle эффекта - редактируйте --jiggle-* переменные
+ */
+
+/* Шрифты */
+@font-face {
+  font-family: "NAURYZREDKEDS";
+  src: url("/fonts/NAURYZREDKEDS.woff2") format("woff2");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "phonksans";
+  src: url("/fonts/PhonkSans-Light.woff2") format("woff2");
+}
+
+/* Переменные страницы */
+:root {
+  --tour-bg: #fefefc;
+  --tour-text: #1a1a1a;
+  --tour-accent: #2F3B69;
+  --tour-muted: #6b7280;
+  --tour-border: #e5e5e5;
+  --tour-card-bg: rgba(255, 255, 255, 0.95);
+
+  /* Локальные настройки анимаций для тонкой настройки */
+  --extra-btn-animation-speed: 0.25s; /* Скорость появления кнопки - */
+}
+
+/* ==================== Desktop Stub ==================== */
+.desktop-stub {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2F3B69 100%);
   display: flex;
-  flex-wrap: wrap;
-  height: 100vh;
-  max-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.desktop-stub-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 80%;
+}
+
+.desktop-stub-text {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: clamp(4rem, 12vw, 12rem);
+  color: white;
+  text-align: center;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  opacity: 0.9;
+}
+
+/* ==================== Main Tour Page ==================== */
+.tour-page {
+  -height: 100vh;
+  background: var(--tour-bg);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.tour-page.loading-state,
+.tour-page.error-state {
+  justify-content: center;
+  align-items: center;
+}
+
+/* Loader */
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.loader-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--tour-border);
+  border-top-color: var(--tour-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.loader-spinner.large {
+  width: 56px;
+  height: 56px;
+  border-width: 4px;
+}
+
+.loader-text {
+  font-family: "phonksans", sans-serif;
+  font-size: 14px;
+  color: var(--tour-muted);
+  letter-spacing: 0.1em;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error */
+.error-container {
+  padding: 24px;
+  text-align: center;
+}
+
+.error-text {
+  font-family: "phonksans", sans-serif;
+  font-size: 16px;
+  color: var(--tour-muted);
+}
+
+/* ==================== Gallery / Carousel ==================== */
+.tour-gallery {
+  width: 100%;
+  height: 45vh;
+  min-height: 300px;
+  max-height: 400px;
+  position: relative;
   overflow: hidden;
+}
 
-  .tour-img {
-    width: 100%;
-    height: 50%;
-    /* background-color: gray;
-    background-image: url(/tour-pfp/balkaria.webp);
-    background-size: 650px;
-    background-position-y: 0%;
-    background-position-x: 50%; */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+}
 
-    .carousel {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
+.carousel-track {
+  display: flex;
+  height: 100%;
+  will-change: transform;
+}
 
-    .carousel-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+.carousel-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+}
 
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0, 0, 0, 0.5);
-      color: white;
-      border: none;
-      font-size: 24px;
-      padding: 10px 15px;
-      cursor: pointer;
-      z-index: 10;
-    }
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
 
-    .prev-btn {
-      left: 10px;
-    }
+.carousel-image.loaded {
+  opacity: 1;
+}
 
-    .next-btn {
-      right: 10px;
-    }
+.carousel-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
-    .carousel-indicators {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 8px;
-    }
+.carousel-error {
+  font-family: "phonksans", sans-serif;
+  font-size: 14px;
+  color: var(--tour-muted);
+}
 
-    .indicator {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.5);
-      cursor: pointer;
-    }
+.carousel-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-family: "phonksans", sans-serif;
+  font-size: 14px;
+  color: var(--tour-muted);
+  background: #f5f5f5;
+}
 
-    .indicator.active {
-      background: white;
-    }
+/* Carousel Indicators - улучшенное позиционирование */
+.carousel-indicators {
+  position: absolute;
+  bottom: 32px; /* Подняли выше */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all var(--animation-speed-normal, 0.3s) var(--ease-out);
+}
+
+.indicator.active {
+  background: white;
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* Carousel Counter - с safezone отступами */
+.carousel-counter {
+  position: absolute;
+  /* Учитываем safezone для Telegram */
+  top: calc(16px + var(--tg-safe-area-top, 0px));
+  right: 16px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-family: "phonksans", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  z-index: 10;
+}
+
+/* ==================== Fullscreen Gallery - Адаптировано для мобильных ==================== */
+/*
+ * Галерея занимает точно размер экрана с учётом safe-area Telegram
+ * Использует 100dvh для корректной работы на мобильных
+ */
+.fullscreen-gallery {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh; /* Динамическая высота для мобильных */
+  background: rgba(0, 0, 0, 0.98);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  animation: fullscreenFadeIn var(--animation-speed-normal, 0.3s) var(--ease-out);
+  /* Safezone отступы для Telegram */
+  padding-top: var(--tg-safe-area-top, 0px);
+  padding-bottom: var(--tg-safe-area-bottom, 0px);
+  padding-left: var(--tg-safe-area-left, 0px);
+  padding-right: var(--tg-safe-area-right, 0px);
+  /* Предотвращаем overflow */
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.fullscreen-gallery.open {
+  animation: fullscreenFadeIn var(--animation-speed-normal, 0.3s) var(--ease-out);
+}
+
+@keyframes fullscreenFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
   }
-
-  .tour-inner {
-    position: relative;
-    top: -5%;
-    height: 55%;
-    border-radius: 30px 30px 0px 0px;
-
-    padding: 20px;
-
-    background-color: var(--sub-color);
-    color: var(--main-color);
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .tour-header-info {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-
-    .tour-name {
-      max-width: 60%;
-      font-size: 1.8rem;
-    }
-
-    .price-section {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      height: min-content;
-
-      .price {
-        width: min-content;
-        font-size: 1.8rem;
-      }
-
-      .per-one {
-        display: flex;
-        align-items: end;
-        padding-bottom: 5px;
-
-        .close,
-        .person {
-          width: min-content;
-          display: flex;
-          height: 15px;
-          fill: var(--main-color);
-        }
-
-        .person {
-          height: 20px;
-          margin: 0 0 0 -3px;
-        }
-      }
-    }
-  }
-
-  .tour-tab-nav {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    font-family: phonksans;
-    font-size: 0.8rem;
-
-    margin: 20px 0px;
-  }
-
-  .tab-link {
-    flex: 1;
-    text-align: center;
-    padding: 10px;
-    background: none;
-    border: none;
-    color: var(--main-color);
-    font-size: 0.8rem;
-    cursor: pointer;
-    opacity: 0.5;
-  }
-
-  .tab-link.active {
+  to {
     opacity: 1;
-    text-decoration: underline;
+    transform: scale(1);
   }
+}
 
-  .tour-section {
-    width: 100%;
-    margin-bottom: 20px;
+.fullscreen-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  flex-shrink: 0;
+}
+
+.fullscreen-title {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: 16px;
+  color: white;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+  max-width: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fullscreen-close {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--animation-speed-fast, 0.15s) var(--ease-out);
+  flex-shrink: 0;
+}
+
+.fullscreen-close:active {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(0.95);
+}
+
+.fullscreen-content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: 0; /* Важно для flex */
+}
+
+.fullscreen-track {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  will-change: transform;
+}
+
+.fullscreen-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.fullscreen-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  /* Плавное появление */
+  animation: imageZoomIn var(--animation-speed-normal, 0.3s) var(--ease-out);
+}
+
+@keyframes imageZoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
   }
-
-  .extras-list {
-    list-style: none;
-    padding: 0;
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
+}
 
-  .extra-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
+/* Thumbnails - адаптивные миниатюры */
+.fullscreen-thumbnails {
+  display: flex;
+  gap: 8px;
+  padding: 12px 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  flex-shrink: 0;
+}
+
+.fullscreen-thumbnails::-webkit-scrollbar {
+  display: none;
+}
+
+.thumbnail {
+  flex: 0 0 56px;
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: all var(--animation-speed-fast, 0.15s) var(--ease-out);
+  border: 2px solid transparent;
+}
+
+.thumbnail.active {
+  opacity: 1;
+  border-color: white;
+  transform: scale(1.05);
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fullscreen-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  flex-shrink: 0;
+}
+
+/* ==================== Tour Content ==================== */
+.tour-content {
+  flex: 1;
+  background: var(--tour-bg);
+  border-radius: 24px 24px 0 0;
+  margin-top: -24px;
+  position: relative;
+  z-index: 5;
+  padding: 24px 20px;
+  padding-bottom: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Tour Header */
+.tour-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.tour-title {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: clamp(24px, 7vw, 32px);
+  color: var(--tour-text);
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: -0.02em;
+  flex: 1;
+}
+
+.tour-price-block {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.tour-price {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: clamp(24px, 6vw, 28px);
+  color: var(--tour-accent);
+  letter-spacing: -0.02em;
+}
+
+.tour-currency {
+  font-family: "phonksans", sans-serif;
+  font-size: 16px;
+  color: var(--tour-accent);
+}
+
+/* Quick Info - с jiggle анимацией */
+.tour-quick-info {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(47, 59, 105, 0.05);
+  border-radius: 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+   /* Эффект нажатия */
+  transition: transform var(--animation-speed-fast, 0.15s) var(--ease-out);
+}
+
+.tour-quick-info:active {
+  transform: scale(0.98); 
+}
+
+.tour-quick-info::-webkit-scrollbar {
+  display: none;
+}
+
+.quick-info-item {
+  flex: 1;
+  min-width: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: center;
+  padding: 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  /* Эффект нажатия - сжатие и разжатие */
+  transition: transform var(--animation-speed-fast, 0.15s) var(--ease-out),
+              background var(--animation-speed-fast, 0.15s) var(--ease-out);
+}
+
+/* .quick-info-item:active {
+  transform: scale(0.95);
+  background: rgba(47, 59, 105, 0.08);
+} */
+
+/* Jiggle анимация для quick-info */
+.quick-info-item.jiggling {
+  animation: jiggle var(--jiggle-duration, 0.4s) var(--ease-elastic);
+}
+
+.quick-info-label {
+  font-family: "phonksans", sans-serif;
+  font-size: 10px;
+  color: var(--tour-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.quick-info-value {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: 14px;
+  color: var(--tour-text);
+  white-space: nowrap;
+}
+
+/* ==================== Tabs ==================== */
+.tour-tabs {
+  margin: 0 -20px;
+  padding: 0 20px;
+}
+
+.tabs-container {
+  display: flex;
+  position: relative;
+  background: rgba(47, 59, 105, 0.05);
+  border-radius: 12px;
+  padding: 4px;
+  /* Эффект нажатия */
+  transition: transform var(--animation-speed-fast, 0.15s) var(--ease-out);
+}
+
+.tabs-container:active {
+  transform: scale(0.98);
+}
+
+.tab-button {
+  flex: 1;
+  padding: 12px 8px;
+  border: none;
+  background: transparent;
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: 11px;
+  color: var(--tour-muted);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  position: relative;
+  z-index: 1;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.tab-button.active {
+  color: var(--tour-text);
+}
+
+/* Индикатор - видим сразу после инициализации */
+.tab-indicator {
+  position: absolute;
+  bottom: 4px;
+  height: calc(100% - 8px);
+  background: white;
+  border-radius: 8px;
+  transition: all var(--animation-speed-normal, 0.3s) var(--ease-out);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 0;
+  /* Скрыт до инициализации */
+  opacity: 0;
+}
+
+.tab-indicator.visible {
+  opacity: 1;
+}
+
+/* ==================== Sections ==================== */
+.tour-sections {
+  flex: 1;
+  position: relative;
+  min-height: 200px;
+}
+
+.section {
+  display: none;
+  animation: sectionFadeIn 0.3s ease;
+}
+
+.section.active {
+  display: block;
+}
+
+@keyframes sectionFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
-
-  .extra-info {
-    display: flex;
-    justify-content: space-between;
-    flex: 1;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
-  .extra-name {
-    font-size: 0.9rem;
+.section-content {
+  padding: 8px 0;
+}
+
+/* About Section */
+.about-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.about-text {
+  font-family: "phonksans", sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--tour-text);
+  margin: 0;
+}
+
+/* Location block с jiggle анимацией */
+.location-block {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(47, 59, 105, 0.05);
+  border-radius: 12px;
+  color: var(--tour-accent);
+  cursor: pointer;
+  /* Эффект нажатия - сжатие и разжатие */
+  transition: transform var(--animation-speed-fast, 0.15s) var(--ease-out),
+              background var(--animation-speed-fast, 0.15s) var(--ease-out);
+}
+
+.location-block:active {
+  transform: scale(0.97);
+  background: rgba(47, 59, 105, 0.1);
+}
+
+.location-block.jiggling {
+  animation: jiggle var(--jiggle-duration, 0.4s) var(--ease-elastic);
+}
+
+.location-block span {
+  font-family: "phonksans", sans-serif;
+  font-size: 14px;
+}
+
+/* Included Section */
+.included-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.included-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(47, 59, 105, 0.03);
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+
+.included-item svg {
+  flex-shrink: 0;
+  color: #22c55e;
+  margin-top: 2px;
+}
+
+.included-item span {
+  font-family: "phonksans", sans-serif;
+  font-size: 14px;
+  color: var(--tour-text);
+  line-height: 1.4;
+}
+
+/* Extras Section */
+.extras-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.extra-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: white;
+  border: 1px solid var(--tour-border);
+  border-radius: 16px;
+  transition: all 0.2s ease;
+}
+
+.extra-item:active {
+  transform: scale(0.98);
+}
+
+.extra-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.extra-name {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: 15px;
+  color: var(--tour-text);
+}
+
+.extra-description {
+  font-family: "phonksans", sans-serif;
+  font-size: 12px;
+  color: var(--tour-muted);
+  line-height: 1.3;
+}
+
+.extra-availability {
+  font-family: "phonksans", sans-serif;
+  font-size: 11px;
+  color: var(--tour-muted);
+  opacity: 0.7;
+}
+
+.extra-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.extra-price {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: 16px;
+  color: var(--tour-accent);
+}
+
+/* ==================== Extra Controls с анимациями +/- ==================== */
+/*
+ * Кнопки +/- располагаются вертикально (вверх-вниз)
+ * чтобы не сдвигать текст при появлении кнопки "-"
+ * Измените --extra-btn-animation-speed для регулировки скорости
+ */
+.extra-controls {
+  display: flex;
+  flex-direction: column; /* Вертикальное расположение */
+  align-items: center;
+  gap: 2px;
+  background: rgba(47, 59, 105, 0.05);
+  border-radius: 12px;
+  padding: 2px;
+  transition: all var(--extra-btn-animation-speed, 0.25s) var(--ease-out);
+}
+
+.extra-controls.expanded {
+  gap: 4px;
+}
+
+.extra-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: 20px;
+  color: var(--tour-accent);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--animation-speed-fast, 0.15s) var(--ease-out);
+}
+
+.extra-btn:active {
+  transform: scale(0.85);
+  background: rgba(47, 59, 105, 0.1);
+}
+
+.extra-btn.plus {
+  background: var(--tour-accent);
+  color: white;
+}
+
+.extra-btn.plus:active {
+  background: #252d54;
+}
+
+.extra-btn.plus.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background: var(--tour-muted);
+}
+
+/* Кнопка минус - плавное появление вверх */
+.extra-btn.minus {
+  height: 0;
+  opacity: 0;
+  padding: 0;
+  overflow: hidden;
+  transform: scale(0.5) translateY(10px);
+}
+
+.extra-btn.minus.visible {
+  height: 36px;
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Счетчик количества */
+.extra-count {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: 16px;
+  color: var(--tour-text);
+  min-width: 24px;
+  text-align: center;
+  /* Анимация появления */
+  animation: countPop var(--animation-speed-fast, 0.15s) var(--ease-bounce);
+}
+
+@keyframes countPop {
+  0% { transform: scale(0.5); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.empty-text {
+  font-family: "phonksans", sans-serif;
+  font-size: 14px;
+  color: var(--tour-muted);
+  text-align: center;
+  padding: 32px;
+}
+
+/* ==================== Bottom Bar - Фиксированная панель ==================== */
+.tour-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* Комфортные отступы с учетом safezone */
+  padding: 16px 20px;
+  padding-bottom: calc(24px + var(--tg-safe-area-bottom, 0px));
+  background: var(--tour-bg);
+  border-top: 1px solid var(--tour-border);
+  display: flex;
+  gap: 12px;
+  z-index: 100;
+  /* Плавное появление */
+  animation: slideUpBar var(--animation-speed-normal, 0.3s) var(--ease-out);
+}
+
+@keyframes slideUpBar {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
   }
-
-  .extra-price {
-    font-size: 0.9rem;
-    font-weight: bold;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
-  .extra-add-btn {
-    background: var(--main-color);
-    color: var(--sub-color);
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.cart-button {
+  width: 56px;
+  height: 56px;
+  border: 2px solid var(--tour-accent);
+  background: transparent;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--tour-accent);
+}
 
-  .tour-about-section {
-    display: flex;
-    overflow: scroll;
-    font-family: phonksans;
-    font-size: 0.8rem;
-    line-height: 1.3rem;
+.cart-button:active {
+  transform: scale(0.95);
+  background: rgba(47, 59, 105, 0.05);
+}
 
-    margin-top: 10px;
-    margin-bottom: 90px;
-  }
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 22px;
+  height: 22px;
+  background: #ef4444;
+  color: white;
+  border-radius: 11px;
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+}
 
-  .select-button {
-    position: absolute;
-    bottom: 5%;
+/* Главная кнопка оплаты - унифицированный стиль */
+.pay-button {
+  flex: 1;
+  height: 56px;
+  border: none;
+  background: var(--main-color, var(--tour-accent));
+  border-radius: var(--btn-radius, 16px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(47, 59, 105, 0.35);
+  /* Анимация из глобальных переменных */
+  transition: transform var(--animation-speed-fast, 0.15s) var(--ease-out),
+              box-shadow var(--animation-speed-fast, 0.15s) var(--ease-out),
+              background var(--animation-speed-fast, 0.15s) var(--ease-out);
+}
 
-    display: flex;
-    justify-self: end;
-    justify-content: center;
-    align-items: center;
-    font-family: phonksans;
+.pay-button:active {
+  transform: scale(0.98);
+  background: #252d54;
+  box-shadow: 0 3px 12px rgba(47, 59, 105, 0.25);
+}
 
-    width: 90%;
-    height: 70px;
-    border-radius: 40px;
-    border: none;
+.pay-button span {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: 16px;
+  color: white;
+  letter-spacing: 0.05em;
+}
 
-    color: var(--sub-color);
-    background-color: var(--main-color);
-  }
+.pay-price {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+/* ==================== Cart Overlay ==================== */
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.cart-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cart-container {
+  width: 100%;
+  max-height: 70vh;
+  background: var(--tour-bg);
+  border-radius: 24px 24px 0 0;
+  padding: 24px 20px;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+}
+
+.cart-overlay.open .cart-container {
+  transform: translateY(0);
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.cart-title {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: 24px;
+  color: var(--tour-text);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.cart-close {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: rgba(47, 59, 105, 0.05);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--tour-text);
+  transition: background 0.2s;
+}
+
+.cart-close:active {
+  background: rgba(47, 59, 105, 0.1);
+}
+
+.cart-empty {
+  text-align: center;
+  padding: 48px 0;
+}
+
+.cart-empty span {
+  font-family: "phonksans", sans-serif;
+  font-size: 16px;
+  color: var(--tour-muted);
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: white;
+  border: 1px solid var(--tour-border);
+  border-radius: 16px;
+}
+
+.cart-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cart-item-name {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: 15px;
+  color: var(--tour-text);
+}
+
+.cart-item-price {
+  font-family: "phonksans", sans-serif;
+  font-size: 14px;
+  color: var(--tour-accent);
+}
+
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cart-btn {
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--tour-border);
+  background: transparent;
+  border-radius: 10px;
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: 20px;
+  color: var(--tour-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.cart-btn:active {
+  transform: scale(0.9);
+  background: rgba(47, 59, 105, 0.05);
+}
+
+.cart-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.cart-item-count {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: 18px;
+  color: var(--tour-text);
+  min-width: 24px;
+  text-align: center;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: var(--tour-accent);
+  border-radius: 16px;
+}
+
+.cart-total-label {
+  font-family: "phonksans", sans-serif;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.cart-total-price {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: 24px;
+  color: white;
 }

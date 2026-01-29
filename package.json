@@ -7,12 +7,15 @@
     "dev": "vite --host",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "env:dev": "node scripts/setup-env.js development",
+    "env:prod": "node scripts/setup-env.js production"
   },
   "dependencies": {
     "@telegram-apps/sdk-react": "^3.3.9",
     "@twa-dev/sdk": "^8.0.2",
     "payload": "^3.65.0",
+    "qwen": "^0.0.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router": "^7.9.5",

@@ -1,15 +1,89 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./PayPage.css";
+import tg from "../../utils/telegram.jsx";
+import { BackButton } from "@twa-dev/sdk/react";
 import GradientText from "../../comp/Gradtext/GradientText";
-import MyBackButton from "../../comp/BackButton/BackButton";
+import WebApp from "@twa-dev/sdk";
+
+// Хук для определения мобильного устройства
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return isMobile;
+};
+
+// Компонент заглушки для десктопа
+const DesktopStub = () => (
+  <div className="desktop-stub">
+    <div className="desktop-stub-content">
+      <span className="desktop-stub-text">ВЕРСИЯ</span>
+      <span className="desktop-stub-text">В РАЗРАБОТКЕ</span>
+    </div>
+  </div>
+);
+
+// Функция для haptic feedback
+const hapticFeedback = (type = 'light') => {
+  try {
+    if (WebApp?.HapticFeedback) {
+      if (type === 'success') {
+        WebApp.HapticFeedback.notificationOccurred('success');
+      } else if (type === 'error') {
+        WebApp.HapticFeedback.notificationOccurred('error');
+      } else {
+        WebApp.HapticFeedback.impactOccurred(type);
+      }
+    }
+  } catch (e) {
+    console.log('Haptic feedback not available');
+  }
+};
 
 export default function PayPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { tour, cart } = location.state || { tour: null, cart: [] };
-  // console.log("Tour data:", tour);
-  // console.log("Cart data:", cart);
+  const isMobile = useIsMobile();
+  const [isVisible, setIsVisible] = useState(false);
+  const { tour, cart: initialCart } = location.state || { tour: null, cart: [] };
+
+  // Управляемое состояние корзины для возможности удаления
+  const [cartItems, setCartItems] = useState(initialCart);
+
+  // Состояние для отслеживания фокуса на инпутах (клавиатура открыта)
+  const [isInputFocused, setIsInputFocused] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setIsVisible(true), 100);
+  }, []);
+
+  // Удаление услуги из корзины
+  const removeServiceFromCart = (index) => {
+    hapticFeedback('light');
+    setCartItems(prev => prev.filter((_, i) => i !== index));
+  };
+
+  // Скрытие клавиатуры
+  const hideKeyboard = () => {
+    document.activeElement?.blur();
+    setIsInputFocused(false);
+  };
+
+
+  // тг часть
+  
+
+  // конец тг части
+
 
   // Генерация 5-символьного буквенно-цифрового кода для Check ID
   const generateCheckId = () => {
@@ -75,7 +149,7 @@ export default function PayPage() {
   // Рассчитываем общую стоимость (количество пассажиров всегда 1)
   const calculateTotal = () => {
     if (!tour) return 0;
-    const extrasTotal = cart.reduce((sum, item) => sum + item.price, 0);
+    const extrasTotal = cartItems.reduce((sum, item) => sum + item.price, 0);
     return tour.price + extrasTotal;
   };
 
@@ -126,7 +200,7 @@ export default function PayPage() {
       orderTime: new Date().toISOString(),
       paymentStatus: "ожидает оплаты",
       checkId: checkId,
-      selectedServices: cart.map((item) => ({
+      selectedServices: cartItems.map((item) => ({
         serviceName: item.name,
         servicePrice: item.price,
       })), // Передаем выбранные доп услуги с названием и ценой
@@ -137,24 +211,36 @@ export default function PayPage() {
 
     // Отправляем данные в коллекцию Payments
     try {
-      const response = await fetch("https://abaxgeetudaf.beget.app/api/payments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(paymentData),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/payments`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(paymentData),
+        }
+      );
 
       if (response.ok) {
         console.log(
           "Данные успешно отправлены в коллекцию Payments",
           paymentData
         );
+
         // Открываем ссылку оплаты в новой вкладке
-        window.open(
-          "https://qr.nspk.ru/BS1A007TDKPNCA548AKAURRC4P4P2GCQ?type=01&bank=100000000004&crc=9908",
-          "_blank"
-        );
+        const paymentUrl =
+          "https://qr.nspk.ru/BS1A007TDKPNCA548AKAURRC4P4P2GCQ?type=01&bank=100000000004&crc=9908";
+
+        if (window.Telegram?.WebApp?.openLink) {
+          window.Telegram.WebApp.openLink(paymentUrl, {
+            try_instant_view: false,
+          });
+        } else {
+          // fallback: например, показать сообщение
+          alert("Платёж недоступен в этом браузере, обратитесь в поддержку бота @whoswzy");
+        }
+
         // Переходим на страницу благодарности
         navigate("/thank");
       } else {
@@ -166,10 +252,15 @@ export default function PayPage() {
     }
   };
 
+  if (!isMobile) {
+    return <DesktopStub />;
+  }
+
   if (!tour) {
     return (
-      <div className="pay-page">
-        <MyBackButton>Back</MyBackButton>
+      <div className={`pay-page ${isVisible ? 'visible' : ''}`}>
+        {/* <MyBackButton>Back</MyBackButton> */}
+        <BackButton onClick={() => window.history.back()} />
         <div className="ticket">
           <div className="ticket-inner">
             <div className="ticket-header">
@@ -294,8 +385,8 @@ export default function PayPage() {
   }
 
   return (
-    <div className="pay-page">
-      <MyBackButton>Back</MyBackButton>
+    <div className={`pay-page ${isVisible ? 'visible' : ''}`}>
+      <BackButton onClick={() => window.history.back()} />
       <div className="ticket">
         <div className="ticket-inner">
           <div className="ticket-header">
@@ -408,6 +499,8 @@ export default function PayPage() {
                     className={`passenger-input ${nameError ? "error" : ""}`}
                     placeholder="Ваше имя"
                     value={passengerName}
+                    onFocus={() => setIsInputFocused(true)}
+                    onBlur={() => setIsInputFocused(false)}
                     onChange={(e) => {
                       const value = e.target.value;
                       // Ограничиваем длину ввода 50 символами
@@ -462,6 +555,8 @@ export default function PayPage() {
                     className={`phone-input ${phoneError ? "error" : ""}`}
                     placeholder="Телефон"
                     value={phoneNumber}
+                    onFocus={() => setIsInputFocused(true)}
+                    onBlur={() => setIsInputFocused(false)}
                     onChange={(e) => {
                       const value = e.target.value;
                       // Ограничиваем длину ввода 14 символами
@@ -508,15 +603,26 @@ export default function PayPage() {
                 <div className="seat-number price-numbers">-</div>
               </div> */}
 
-              {/* Отображение выбранных доп услуг */}
-              {cart && cart.length > 0 && (
+              {/* Отображение выбранных доп услуг с возможностью удаления */}
+              {cartItems && cartItems.length > 0 && (
                 <div className="extras-list">
                   <h4 className="extras-title">Доп услуги</h4>
                   <ul>
-                    {cart.map((item, index) => (
-                      <li key={index} className="extra-item">
-                        <span className="extra-name">{item.name}</span>
-                        <span className="extra-price">{item.price} RUB</span>
+                    {cartItems.map((item, index) => (
+                      <li key={index} className="extra-item-ticket">
+                        <div className="extra-item-info">
+                          <span className="extra-name">{item.name}</span>
+                          <span className="extra-price">{item.price} ₽</span>
+                        </div>
+                        <button
+                          className="extra-remove-btn"
+                          onClick={() => removeServiceFromCart(index)}
+                          aria-label="Удалить услугу"
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                          </svg>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -782,8 +888,23 @@ export default function PayPage() {
           </div>
         )}
 
-        <div className="select-button" onClick={handlePayment}>
-          Оплатить
+        {/* Кнопка скрытия клавиатуры - появляется при фокусе на инпуте */}
+        <button
+          className={`keyboard-dismiss-btn ${isInputFocused ? 'visible' : ''}`}
+          onClick={hideKeyboard}
+          aria-label="Скрыть клавиатуру"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M7 10L12 15L17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+
+        {/* Главная кнопка оплаты - не поднимается над клавиатурой */}
+        <div
+          className={`select-button primary-button-pay ${isInputFocused ? 'keyboard-open' : ''}`}
+          onClick={() => { hapticFeedback('success'); handlePayment(); }}
+        >
+          ОПЛАТИТЬ
         </div>
       </div>
     </div>

@@ -1,8 +1,7 @@
-/* @font-face {
-  font-family: "NAURYZ";
-  src:
-    url("/fonts/NAURYZ") format("woff2"),
-} */
+/* TourBlock.css - Карточка тура */
+/*
+ * Анимации используют глобальные переменные из index.css
+ */
 
 .tour-block {
   display: flex;
@@ -12,73 +11,87 @@
   width: 90vw;
   height: 250px;
   padding: 20px 15px;
-  margin-bottom: 60px;
-  border-radius: 30px;
+  margin-bottom: 30px;
+  border-radius: 24px;
   color: var(--sub-color);
-  background-size: 400px;
-  background-position-y: 70%;
-  background-position-x: 80%;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 8px 32px rgba(47, 59, 105, 0.25);
+  /* Анимация появления карточек */
+  animation: fadeInUp var(--animation-speed-slow, 0.5s) var(--ease-out) both;
+  transition: transform var(--animation-speed-fast, 0.15s) var(--ease-out),
+              box-shadow var(--animation-speed-fast, 0.15s) var(--ease-out);
+}
+
+.tour-block:active {
+  transform: scale(0.98);
 }
 
 .tour-location {
   position: relative;
-  /* top: 20px; */
-  /* left: 20px; */
   display: flex;
   align-items: center;
   height: 30px;
   width: max-content;
-  padding: 5px 10px;
-
+  padding: 6px 12px;
   text-wrap: nowrap;
-  font-size: 1rem;
-
-  background-color: rgba(0, 0, 0, 0.096);
+  font-size: 0.85rem;
+  font-family: "phonksans", sans-serif;
+  background-color: rgba(0, 0, 0, 0.25);
   border-radius: 20px;
-
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .tour-info {
   display: flex;
   height: fit-content;
   justify-content: space-between;
-
+  align-items: flex-end;
 
   .tour-name {
     display: flex;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
 
   .tour-caption {
-    /* font-family: 'phonksans'; */
-    font-size: 0.7rem;
-    color: rgb(255, 255, 255);
-
-    margin-top: 5px;
-    padding: 5px 5px 5px 5px;
+    font-family: 'phonksans', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 6px;
+    padding: 6px 10px;
     width: 90%;
-
-    background-color: rgba(58, 58, 58, 0.141);
-    border-radius: 20px;
-
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
 
   .tour-button {
-    font-size: 0.9rem;
-
+    font-size: 0.85rem;
     display: flex;
     align-self: center;
     height: fit-content;
-
-    padding: 15px 15px;
-
+    padding: 14px 16px;
     background-color: var(--main-color);
-    border-radius: 15px;
+    border-radius: var(--btn-radius, 16px);
+    box-shadow: 0 4px 12px rgba(47, 59, 105, 0.4);
+    /* Анимация нажатия */
+    transition: transform var(--animation-speed-fast, 0.15s) var(--ease-out),
+                box-shadow var(--animation-speed-fast, 0.15s) var(--ease-out);
+    cursor: pointer;
 
     .tour-link {
       all: unset;
+      font-family: "NAURYZREDKEDS", sans-serif;
+      letter-spacing: 0.05em;
     }
+  }
+
+  .tour-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 8px rgba(47, 59, 105, 0.3);
   }
 }

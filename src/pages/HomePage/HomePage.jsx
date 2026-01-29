@@ -2,24 +2,56 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./HomePage.css";
 import WebApp from "@twa-dev/sdk";
-import BackButton from "../../comp/BackButton/BackButton"; // Импортируем компонент кнопки "Назад"
-import TourBlock from "../../comp/TourBlock/TourBlock"; // Импортируем компонент блока тура
+import TourBlock from "../../comp/TourBlock/TourBlock";
 
-let tg = WebApp;
+// Хук для определения мобильного устройства
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return isMobile;
+};
+
+// Компонент заглушки для десктопа
+const DesktopStub = () => (
+  <div className="desktop-stub">
+    <div className="desktop-stub-content">
+      <span className="desktop-stub-text">ВЕРСИЯ</span>
+      <span className="desktop-stub-text">В РАЗРАБОТКЕ</span>
+    </div>
+  </div>
+);
 
 export default function HomePage() {
-  tg.BackButton.hide();
-
+  const isMobile = useIsMobile();
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    try {
+      WebApp?.BackButton?.hide();
+    } catch (e) {
+      console.log('BackButton not available');
+    }
+  }, []);
 
   useEffect(() => {
     const fetchTours = async () => {
       try {
-        const res = await fetch("https://abaxgeetudaf.beget.app/api/tours?limit=20");
-        console.log(res)
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/tours?limit=20&where[status][equals]=active`,
+        );
         const data = await res.json();
-        console.log(data)
+        console.log(data);
         setTours(data.docs || []);
       } catch (err) {
         console.error("Ошибка:", err);
@@ -32,19 +64,27 @@ export default function HomePage() {
     fetchTours();
   }, []);
 
-  console.log(tours)
+  useEffect(() => {
+    if (!loading) {
+      setTimeout(() => setIsVisible(true), 100);
+    }
+  }, [loading]);
+
+  if (!isMobile) {
+    return <DesktopStub />;
+  }
 
   if (loading) {
     return (
-      <div className="loading" style={{ padding: "50px", textAlign: "center" }}>
-        Загрузка...
+      <div className="home-page-loading">
+        <div className="loading-spinner"></div>
+        <span>Загрузка...</span>
       </div>
     );
   }
 
   return (
-    <div className="home-page">
-      <BackButton>Back</BackButton>
+    <div className={`home-page ${isVisible ? 'visible' : ''}`}>
       <div className="tour-section">
         <h1 className="title">
           Мы - готовы,

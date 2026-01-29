@@ -6,11 +6,22 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://abaxgeetudaf.beget.app",
+        target: "http://localhost:3000",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
-      "/media": "https://abaxgeetudaf.beget.app",
+      "/media": "http://localhost:3000",
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom", "react-router", "react-router-dom"],
+        },
+      },
+    },
+  },
+  // Для корректной работы клиентской маршрутизации в продакшене
+  appType: "spa",
 });

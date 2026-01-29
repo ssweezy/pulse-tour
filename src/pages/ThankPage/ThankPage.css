@@ -1,88 +1,312 @@
+/* ThankPage.css - Минимализм + Брутализм */
+
+/* Шрифты */
 @font-face {
-  font-family: "rushtice";
-  src:
-    url("/fonts/Rushtice.woff2") format("woff2"),
-    url("/fonts/Rushtice.ttf") format("ttf");
+  font-family: "NAURYZREDKEDS";
+  src: url("/fonts/NAURYZREDKEDS.woff2") format("woff2");
   font-weight: bold;
 }
 
 @font-face {
-  font-family: "berka";
-  src: url("/fonts/Berka.woff2") format("woff2");
+  font-family: "phonksans";
+  src: url("/fonts/PhonkSans-Light.woff2") format("woff2");
 }
 
-@font-face {
-  font-family: "sublima";
-  src: url("/fonts/Sublima.woff2") format("woff2");
-  font-weight: bold;
+/* Переменные */
+:root {
+  --thank-bg: #fefefc;
+  --thank-text: #1a1a1a;
+  --thank-accent: #2F3B69;
+  --thank-muted: #6b7280;
+  --thank-success: #22c55e;
+  --thank-border: #e5e5e5;
 }
 
-@font-face {
-  font-family: "elves";
-  src: url("/fonts/elves-micro.woff2") format("woff2");
-  font-weight: bold;
+/* ==================== Desktop Stub ==================== */
+.desktop-stub {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2F3B69 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
 }
 
-.thank-page {
+.desktop-stub-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #d2d4da, #a4add0);
-  padding: 20px;
-  box-sizing: border-box;
+  width: 80%;
+  height: 80%;
 }
 
+.desktop-stub-text {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: clamp(4rem, 12vw, 12rem);
+  color: white;
+  text-align: center;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  opacity: 0.9;
+}
+
+/* ==================== Main Thank Page ==================== */
+.thank-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--thank-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Safe-area отступы для Telegram */
+  padding: 24px 20px;
+  padding-top: calc(24px + var(--tg-safe-area-top, 0px));
+  padding-bottom: calc(24px + var(--tg-safe-area-bottom, 0px));
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.thank-page.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Декоративные элементы */
+.thank-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.decoration-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--thank-accent);
+  opacity: 0.03;
+}
+
+.circle-1 {
+  width: 300px;
+  height: 300px;
+  top: -100px;
+  right: -100px;
+  animation: float 8s ease-in-out infinite;
+}
+
+.circle-2 {
+  width: 200px;
+  height: 200px;
+  bottom: -50px;
+  left: -50px;
+  animation: float 6s ease-in-out infinite reverse;
+}
+
+.circle-3 {
+  width: 150px;
+  height: 150px;
+  top: 50%;
+  left: 10%;
+  animation: float 10s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.05); }
+}
+
+/* ==================== Content ==================== */
 .thank-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 500px;
-  width: 100%;
-  background: white;
-  border-radius: 20px;
-  padding: 40px 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0.1);
   text-align: center;
+  position: relative;
+  z-index: 1;
+  max-width: 400px;
+  width: 100%;
 }
 
+/* Icon */
+.thank-icon {
+  color: var(--thank-success);
+  margin-bottom: 32px;
+  animation: scaleIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.check-path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: drawCheck 0.8s ease-out 0.5s forwards;
+}
+
+@keyframes drawCheck {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Header */
 .thank-header {
-  margin-bottom: 30px;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
 }
 
-.thank-header div {
-  font-size: 2.5rem;
-  margin: 10px 0;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+.thank-title {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: clamp(40px, 12vw, 56px);
+  color: var(--thank-accent);
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.thank-subtitle {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: clamp(20px, 6vw, 28px);
+  color: var(--thank-text);
+  margin: 8px 0 0 0;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  opacity: 0.8;
+}
+
+/* Message */
 .thank-message {
-  margin-bottom: 40px;
+  margin-bottom: 32px;
+  animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
 }
 
 .thank-message p {
-  font-family: "rushtice";
-  font-size: 1.2rem;
-  color: #333;
+  font-family: "phonksans", sans-serif;
+  font-size: 15px;
+  color: var(--thank-muted);
   line-height: 1.6;
+  margin: 0 0 8px 0;
+}
+
+.thank-message p:last-child {
+  margin-bottom: 0;
+}
+
+/* Блок подтверждения - один красивый блок */
+.thank-confirmation-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 28px 24px;
+  background: linear-gradient(135deg, rgba(47, 59, 105, 0.08) 0%, rgba(47, 59, 105, 0.03) 100%);
+  border-radius: 20px;
+  border: 1px solid var(--thank-border);
+  animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
+}
+
+.confirmation-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: var(--thank-accent);
+  color: white;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.9; }
+}
+
+.confirmation-text {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: 18px;
+  color: var(--thank-accent);
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+.confirmation-subtext {
+  font-family: "phonksans", sans-serif;
+  font-size: 14px;
+  color: var(--thank-muted);
+  margin: 0;
+  text-align: center;
+}
+
+/* ==================== Bottom Button ==================== */
+.thank-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 20px;
+  /* Используем Telegram safe-area */
+  padding-bottom: calc(20px + var(--tg-safe-area-bottom, 0px));
+  background: linear-gradient(to top, var(--thank-bg) 80%, transparent);
+  animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.6s both;
 }
 
 .home-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "rushtice";
-  width: 200px;
-  height: 60px;
-  border-radius: 40px;
+  width: 100%;
+  height: 56px;
   border: none;
-  color: var(--sub-color);
-  background-color: var(--main-color);
-  font-size: 1.2rem;
+  background: var(--thank-accent);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.2s ease;
 }
 
-.home-button:hover {
-  background-color: #252d54;
+.home-button:active {
+  transform: scale(0.98);
+  background: #252d54;
+}
+
+.home-button span {
+  font-family: "NAURYZREDKEDS", sans-serif;
+  font-size: 16px;
+  color: white;
+  letter-spacing: 0.1em;
+}
+
+.home-button svg {
+  color: white;
 }
