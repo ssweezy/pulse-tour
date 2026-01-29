@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import WebApp from "@twa-dev/sdk";
 import { BackButton } from "@twa-dev/sdk/react";
 import "./TourPage.css";
+import Footer from "../../comp/Footer/Footer";
 
 const PAYLOAD_API_URL = `${import.meta.env.VITE_API_URL}/api`;
 
@@ -847,6 +848,8 @@ export default function TourPage() {
           </button>
         </div>
       </div>
+
+      {/* <Footer /> */}
 
       {/* Корзина */}
       <Cart

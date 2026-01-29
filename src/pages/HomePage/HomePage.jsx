@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./HomePage.css";
 import WebApp from "@twa-dev/sdk";
 import TourBlock from "../../comp/TourBlock/TourBlock";
+import Footer from "../../comp/Footer/Footer";
 
 // Хук для определения мобильного устройства
 const useIsMobile = () => {
@@ -94,6 +95,7 @@ export default function HomePage() {
           <TourBlock key={tour.id} tour={tour} />
         ))}
       </div>
+      <Footer />
     </div>
   );
 }

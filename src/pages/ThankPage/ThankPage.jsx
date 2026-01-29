@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./ThankPage.css";
 import WebApp from "@twa-dev/sdk";
 import { BackButton } from "@twa-dev/sdk/react";
+import Footer from "../../comp/Footer/Footer";
 
 // Хук для определения мобильного устройства
 const useIsMobile = () => {
@@ -127,6 +128,8 @@ export default function ThankPage() {
           </svg>
         </button>
       </div>
+
+      {/* <Footer /> */}
     </div>
   );
 }

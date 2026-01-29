@@ -52,6 +52,8 @@
 /* ==================== Main Home Page ==================== */
 .home-page {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   /* Градиентный фон в стиле турагентства */
   background: linear-gradient(
     180deg,
