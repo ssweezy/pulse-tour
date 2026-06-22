@@ -529,7 +529,7 @@
   font-family: "NAURYZREDKEDS", sans-serif;
   font-size: 14px;
   color: var(--tour-text);
-  white-space: nowrap;
+  white-space: wrap;
 }
 
 /* ==================== Tabs ==================== */
