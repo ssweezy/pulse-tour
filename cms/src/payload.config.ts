@@ -35,6 +35,9 @@ export default buildConfig({
     push: process.env.PAYLOAD_DB_PUSH !== 'false',
     pool: {
       connectionString: process.env.DATABASE_URI || '',
+      // Ограничиваем пул: Supabase session-пулер (free) даёт лимит 15 клиентов,
+      // а serverless плодит инстансы. max=3 не даёт исчерпать лимит.
+      max: Number(process.env.DB_POOL_MAX || 3),
     },
   }),
   sharp,
