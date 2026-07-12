@@ -48,8 +48,10 @@ export default buildConfig({
     }),
   ],
 
-  // Server URL для правильной работы редиректов и авторизации
-  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'https://abaxgeetudaf.beget.app',
+  // Server URL. Если PAYLOAD_PUBLIC_SERVER_URL не задан — оставляем undefined,
+  // тогда админка использует относительные URL (свой же домен на Vercel).
+  // Раньше здесь был хардкод старого бегет-домена → админка ходила на чужой сервер.
+  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || undefined,
 
   // CORS: разрешить запросы с фронтенда и с самого себя
   cors: [
