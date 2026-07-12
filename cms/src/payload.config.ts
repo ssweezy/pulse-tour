@@ -45,7 +45,9 @@ export default buildConfig({
     // Хранение медиа в Vercel Blob. Локально без токена плагин выключается
     // и Payload пишет файлы на диск (см. staticDir в Media.ts).
     vercelBlobStorage({
-      enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+      // Всегда включён: иначе при отсутствии токена на этапе сборки плагин
+      // выключался и Payload пытался писать медиа на диск Vercel (ENOENT mkdir /vercel).
+      enabled: true,
       collections: { media: true },
       token: process.env.BLOB_READ_WRITE_TOKEN,
     }),
